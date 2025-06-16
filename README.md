@@ -34,3 +34,4 @@ instead of
 ```html
 <h1 style="color: red; font-style: italic">React & Vite</h1>
 ```
+If you need transform syntax from *html* or *css* to *jsx*, we can use an online tool as [**transform.tools**](https://transform.tools).
