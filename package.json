@@ -1,0 +1,16 @@
+{
+  "name": "react-from-scratch",
+  "version": "1.0.0",
+  "description": "React from scratch - Laracasts",
+  "license": "ISC",
+  "author": "Luis Parrado",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "vite"
+  },
+  "devDependencies": {
+    "vite": "^6.3.5"
+  }
+}
