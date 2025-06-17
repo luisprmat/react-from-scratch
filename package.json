@@ -9,7 +9,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "check": "tsc"
   },
   "devDependencies": {
     "@eslint/js": "^9.29.0",
@@ -25,6 +26,7 @@
     "prettier": "^3.5.3",
     "prettier-plugin-tailwindcss": "^0.6.12",
     "tailwindcss": "^4.1.10",
+    "typescript": "^5.8.3",
     "vite": "^6.3.5"
   },
   "dependencies": {
