@@ -35,3 +35,10 @@ instead of
 <h1 style="color: red; font-style: italic">React & Vite</h1>
 ```
 If you need transform syntax from *html* or *css* to *jsx*, we can use an online tool as [**transform.tools**](https://transform.tools).
+
+## Set up project
+
+- Clone this project https://github.com/luisprmat/react-from-scratch.git
+- Clone template design project [https://github.com/luisprmat/luisprmat-react-from-scratch-template](https://github.com/luisprmat/react-from-scratch.git) and copy folder `public/images` in this project in `public/images`. This project doesn't contain images to avoid duplication (save space in github)
+- Install dependecies: `npm install`
+- Run vite dev server: `npm run dev` 
