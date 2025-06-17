@@ -9,7 +9,6 @@ import { Shortlist } from "./components/ShortList"
 
 import { puppies } from "./data/puppies"
 import { Puppy } from "./types"
-import { LikedContext } from "./context"
 
 export function App() {
   return (
@@ -27,13 +26,11 @@ function Main() {
 
   return (
     <main>
-      <LikedContext value={{ liked, setLiked }}>
-        <div className="mt-24 grid gap-8 sm:grid-cols-2">
-          <Search />
-          <Shortlist puppies={puppies} />
-        </div>
-        <PuppiesList puppies={puppies} />
-      </LikedContext>
+      <div className="mt-24 grid gap-8 sm:grid-cols-2">
+        <Search />
+        <Shortlist liked={liked} setLiked={setLiked} puppies={puppies} />
+      </div>
+      <PuppiesList puppies={puppies} liked={liked} setLiked={setLiked} />
       <NewPuppyForm />
     </main>
   )
