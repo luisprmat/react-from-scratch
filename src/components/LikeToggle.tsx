@@ -1,22 +1,15 @@
 import { Heart } from "lucide-react"
-import { Dispatch, SetStateAction } from "react"
 import { Puppy } from "../types"
+import { useLiked } from "../context"
 
-export function LikeToggle({
-  id,
-  liked,
-  setLiked,
-}: {
-  id: Puppy["id"]
-  liked: Puppy["id"][]
-  setLiked: Dispatch<SetStateAction<Puppy["id"][]>>
-}) {
+export function LikeToggle({ id }: { id: Puppy["id"] }) {
+  const { liked, setLiked } = useLiked()
   return (
     <button
       className="group"
       onClick={() => {
         if (liked.includes(id)) {
-          setLiked(liked.filter((pupId) => pupId !== id))
+          setLiked(liked.filter((pupId: number) => pupId !== id))
         } else {
           setLiked([...liked, id])
         }

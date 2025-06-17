@@ -1,5 +1,3 @@
-import { Dispatch, SetStateAction } from "react"
-
 export type Puppy = {
   id: number
   name: string
@@ -9,6 +7,4 @@ export type Puppy = {
 
 export type PuppyCardProps = {
   puppy: Puppy
-  liked: Puppy["id"][]
-  setLiked: Dispatch<SetStateAction<Puppy["id"][]>>
 }
