@@ -3,7 +3,7 @@ import { type PuppyCardProps, type Puppy } from "../types"
 export function PuppiesList({ puppies }: { puppies: Puppy[] }) {
   return (
     <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {puppies.map(puppy => (
+      {puppies.map((puppy) => (
         <PuppyCard key={puppy.id} puppy={puppy} />
       ))}
     </ul>
@@ -36,8 +36,8 @@ function PuppyCard({ puppy }: PuppyCardProps) {
             strokeLinecap="round"
             strokeLinejoin="round"
             className={
-              puppy.id === 2 
-                ? "fill-pink-500 stroke-none" 
+              puppy.id === 2
+                ? "fill-pink-500 stroke-none"
                 : "stroke-slate-200 group-hover:stroke-slate-300"
             }
           >

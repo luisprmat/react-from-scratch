@@ -1,4 +1,4 @@
-import { Puppy } from "../types";
+import { Puppy } from "../types"
 
 export const puppies: Puppy[] = [
   {
@@ -36,5 +36,5 @@ export const puppies: Puppy[] = [
     name: "Yoko",
     vibe: "Ready for anything",
     imagePath: "/images/6.jpg",
-  }
+  },
 ]
