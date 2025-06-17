@@ -1,12 +1,18 @@
 export function App() {
   return (
-   <main className="min-h-dvh bg-gradient-to-b from-cyan-200 to-white to-[60vh]">
-      {/* Max-width container */}
+    <PageWrapper>
       <Container>
         <Header />
-        {/* Puppies List */}
-        {/* New Puppy Form */}
+        {/* more to come */}
       </Container>
+    </PageWrapper>
+  )
+}
+
+function PageWrapper({children}) {
+  return (
+    <main className="min-h-dvh bg-gradient-to-b from-cyan-200 to-white to-[60vh]">
+      {children}
     </main>
   )
 }
