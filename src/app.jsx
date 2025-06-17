@@ -2,10 +2,20 @@ export function App() {
   return (
    <main className="min-h-dvh bg-gradient-to-b from-cyan-200 to-white to-[60vh]">
       {/* Max-width container */}
-      <div className="mx-auto max-w-5xl p-4 md:p-8">
+      <Container>
         <Header />
-      </div>
+        {/* Puppies List */}
+        {/* New Puppy Form */}
+      </Container>
     </main>
+  )
+}
+
+function Container({children}) {
+  return (
+    <div className="mx-auto max-w-5xl p-4 md:p-8">
+      {children}
+    </div>
   )
 }
 
