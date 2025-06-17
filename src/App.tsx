@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { Container } from "./components/Container"
 import { Header } from "./components/Header"
 import { NewPuppyForm } from "./components/NewPuppyForm"
@@ -20,13 +21,15 @@ export function App() {
 }
 
 function Main() {
+  const [liked, setLiked] = useState<number[]>([1, 3])
+
   return (
     <main>
       <div className="mt-24 grid gap-8 sm:grid-cols-2">
         <Search />
         <Shortlist />
       </div>
-      <PuppiesList puppies={puppies} />
+      <PuppiesList puppies={puppies} liked={liked} setLiked={setLiked} />
       <NewPuppyForm />
     </main>
   )
