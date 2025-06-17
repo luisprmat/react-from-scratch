@@ -9,6 +9,6 @@ export type Puppy = {
 
 export type PuppyCardProps = {
   puppy: Puppy
-  liked: number[]
-  setLiked: Dispatch<SetStateAction<number[]>>
+  liked: Puppy["id"][]
+  setLiked: Dispatch<SetStateAction<Puppy["id"][]>>
 }

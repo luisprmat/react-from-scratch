@@ -8,6 +8,7 @@ import { Search } from "./components/Search"
 import { Shortlist } from "./components/ShortList"
 
 import { puppies } from "./data/puppies"
+import { Puppy } from "./types"
 
 export function App() {
   return (
@@ -21,7 +22,7 @@ export function App() {
 }
 
 function Main() {
-  const [liked, setLiked] = useState<number[]>([1, 3])
+  const [liked, setLiked] = useState<Puppy["id"][]>([1, 3])
 
   return (
     <main>
