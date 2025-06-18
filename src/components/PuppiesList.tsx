@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react"
-import { type PuppyCardProps, type Puppy } from "../types"
+import { type Puppy, type PuppyCardProps } from "../types"
 import { LikeToggle } from "./LikeToggle"
 
 export function PuppiesList({

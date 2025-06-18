@@ -1,6 +1,6 @@
+import { Heart, X } from "lucide-react"
 import { Dispatch, SetStateAction } from "react"
 import { Puppy } from "../types"
-import { Heart, X } from "lucide-react"
 
 export function Shortlist({
   liked,
