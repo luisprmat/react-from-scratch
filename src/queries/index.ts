@@ -35,3 +35,26 @@ export async function toggleLikedStatus(id: Puppy["id"]) {
     throw error
   }
 }
+
+export async function createPuppy(formData: FormData) {
+  try {
+    const response = await fetch(
+      "http://react-from-scratch-api.test/api/puppies",
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+        },
+        body: formData,
+      },
+    )
+    if (!response.ok) {
+      const errorData = await response.json()
+      throw errorData
+    }
+    const { data } = await response.json()
+    return data
+  } catch (error) {
+    throw error
+  }
+}
