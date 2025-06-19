@@ -14,8 +14,7 @@ export type Puppy = {
 
 export type PuppyCardProps = {
   puppy: Puppy
-  liked: Puppy["id"][]
-  setLiked: Dispatch<SetStateAction<Puppy["id"][]>>
+  setPuppies: Dispatch<SetStateAction<Puppy[]>>
 }
 
 export type ApiError = {
