@@ -31,17 +31,26 @@ function Main() {
 
   return (
     <main>
-      <div className="bg-white p-6 shadow ring ring-black/5 mt-12 overflow-auto">
-        <ErrorBoundary fallback={<p>Oh no! Something went wrong!</p>}>
-          <Suspense
-            fallback={
+      <ErrorBoundary
+        fallbackRender={({ error }) => (
+          <div className="bg-red-100 p-6 shadow ring ring-black/5 mt-12 overflow-auto">
+            <p className="text-red-500">
+              {error.message}: {error.details}
+            </p>
+          </div>
+        )}
+      >
+        <Suspense
+          fallback={
+            <div className="bg-white p-6 shadow ring ring-black/5 mt-12 overflow-auto">
               <LoaderCircle className="animate-spin stroke-slate-300" />
-            }
-          >
-            <ApiPuppies />
-          </Suspense>
-        </ErrorBoundary>
-      </div>
+            </div>
+          }
+        >
+          <ApiPuppies />
+        </Suspense>
+      </ErrorBoundary>
+
       <div className="mt-24 grid gap-8 sm:grid-cols-2">
         <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
         <Shortlist liked={liked} setLiked={setLiked} puppies={puppies} />
@@ -62,5 +71,9 @@ const puppyPromise = getPuppies()
 function ApiPuppies() {
   const apiPuppies = use(puppyPromise)
 
-  return <pre>{JSON.stringify(apiPuppies, null, 2)}</pre>
+  return (
+    <div className="bg-green-100 p-6 shadow ring ring-black/5 mt-12 overflow-auto">
+      <pre>{JSON.stringify(apiPuppies, null, 2)}</pre>
+    </div>
+  )
 }
