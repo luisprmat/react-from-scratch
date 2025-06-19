@@ -7,7 +7,8 @@ export async function getPuppies() {
       const errorData = await response.json()
       throw errorData
     }
-    return await response.json()
+    const { data } = await response.json()
+    return data
   } catch (error) {
     throw error
   }

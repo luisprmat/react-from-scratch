@@ -9,48 +9,40 @@ import { Shortlist } from "./components/ShortList"
 
 import { LoaderCircle } from "lucide-react"
 import { ErrorBoundary } from "react-error-boundary"
-import { puppies as puppiesData } from "./data/puppies"
 import { getPuppies } from "./queries"
-import { Puppy } from "./types"
+import { ApiError, Puppy } from "./types"
 
 export function App() {
   return (
     <PageWrapper>
       <Container>
         <Header />
-        <Main />
+        <ErrorBoundary fallbackRender={ErrorBox}>
+          <Suspense
+            fallback={
+              <div className="bg-white p-6 shadow ring ring-black/5 mt-12 overflow-auto">
+                <LoaderCircle className="animate-spin stroke-slate-300" />
+              </div>
+            }
+          >
+            <Main />
+          </Suspense>
+        </ErrorBoundary>
       </Container>
     </PageWrapper>
   )
 }
 
+const puppyPromise = getPuppies()
+
 function Main() {
+  const apiPuppies = use(puppyPromise)
   const [liked, setLiked] = useState<Puppy["id"][]>([1, 3])
   const [searchQuery, setSearchQuery] = useState<string>("")
-  const [puppies, setPuppies] = useState<Puppy[]>(puppiesData)
+  const [puppies, setPuppies] = useState<Puppy[]>(apiPuppies)
 
   return (
     <main>
-      <ErrorBoundary
-        fallbackRender={({ error }) => (
-          <div className="bg-red-100 p-6 shadow ring ring-black/5 mt-12 overflow-auto">
-            <p className="text-red-500">
-              {error.message}: {error.details}
-            </p>
-          </div>
-        )}
-      >
-        <Suspense
-          fallback={
-            <div className="bg-white p-6 shadow ring ring-black/5 mt-12 overflow-auto">
-              <LoaderCircle className="animate-spin stroke-slate-300" />
-            </div>
-          }
-        >
-          <ApiPuppies />
-        </Suspense>
-      </ErrorBoundary>
-
       <div className="mt-24 grid gap-8 sm:grid-cols-2">
         <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
         <Shortlist liked={liked} setLiked={setLiked} puppies={puppies} />
@@ -66,14 +58,12 @@ function Main() {
   )
 }
 
-const puppyPromise = getPuppies()
-
-function ApiPuppies() {
-  const apiPuppies = use(puppyPromise)
-
+function ErrorBox({ error }: { error: ApiError }) {
   return (
-    <div className="bg-green-100 p-6 shadow ring ring-black/5 mt-12 overflow-auto">
-      <pre>{JSON.stringify(apiPuppies, null, 2)}</pre>
+    <div className="bg-red-100 p-6 shadow ring ring-black/5 mt-12 overflow-auto">
+      <p className="text-red-500">
+        {error.code}: {error.message}: {error.details}
+      </p>
     </div>
   )
 }
