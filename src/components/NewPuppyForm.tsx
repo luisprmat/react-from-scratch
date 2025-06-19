@@ -1,5 +1,6 @@
-import { Dispatch, SetStateAction } from "react"
+import { Dispatch, SetStateAction, useState } from "react"
 import { useFormStatus } from "react-dom"
+import { ErrorBoundary } from "react-error-boundary"
 import { createPuppy } from "../queries"
 import { Puppy } from "../types"
 
@@ -10,48 +11,69 @@ export function NewPuppyForm({
   puppies: Puppy[]
   setPuppies: Dispatch<SetStateAction<Puppy[]>>
 }) {
+  const [error, setError] = useState()
   return (
     <div className="mt-12 flex items-center justify-between bg-white p-8 shadow ring ring-black/5">
-      <form
-        action={async (formData: FormData) => {
-          const newPuppy = await createPuppy(formData)
-          setPuppies([...puppies, newPuppy])
-        }}
-        className="mt-4 flex w-full flex-col items-start gap-4"
+      <ErrorBoundary
+        fallbackRender={({ error }) => (
+          <pre>{JSON.stringify(error, null, 2)}</pre>
+        )}
       >
-        <div className="grid w-full gap-6 md:grid-cols-3">
-          <fieldset className="flex w-full flex-col gap-1">
-            <label htmlFor="name">Name</label>
-            <input
-              required
-              className="max-w-96 rounded-sm bg-white px-2 py-1 ring ring-black/20 focus:ring-2 focus:ring-cyan-500 focus:outline-none"
-              id="name"
-              type="text"
-              name="name"
-            />
-          </fieldset>
-          <fieldset className="flex w-full flex-col gap-1">
-            <label htmlFor="trait">Personality trait</label>
-            <input
-              required
-              className="max-w-96 rounded-sm bg-white px-2 py-1 ring ring-black/20 focus:ring-2 focus:ring-cyan-500 focus:outline-none"
-              id="trait"
-              type="text"
-              name="trait"
-            />
-          </fieldset>
-          <fieldset className="col-span-2 flex w-full flex-col gap-1">
-            <label htmlFor="image_url">Profile pic</label>
-            <input
-              className="max-w-96 rounded-sm bg-white px-2 py-1 ring ring-black/20 focus:ring-2 focus:ring-cyan-500 focus:outline-none"
-              id="image_url"
-              type="file"
-              name="image_url"
-            />
-          </fieldset>
-        </div>
-        <SubmitButton />
-      </form>
+        <form
+          action={async (formData: FormData) => {
+            const response = await createPuppy(formData)
+            if (response.errors) {
+              setError(response.errors)
+            }
+            if (response.data) {
+              setPuppies([...puppies, response.data])
+            }
+          }}
+          className="mt-4 flex w-full flex-col items-start gap-4"
+        >
+          <div className="grid w-full gap-6 md:grid-cols-3">
+            <fieldset className="flex w-full flex-col gap-1">
+              <label htmlFor="name">Name</label>
+              <input
+                required
+                className="max-w-96 rounded-sm bg-white px-2 py-1 ring ring-black/20 focus:ring-2 focus:ring-cyan-500 focus:outline-none"
+                id="name"
+                type="text"
+                name="name"
+              />
+              {error?.name && (
+                <span className="text-sm text-red-600">{error.name}</span>
+              )}
+            </fieldset>
+            <fieldset className="flex w-full flex-col gap-1">
+              <label htmlFor="trait">Personality trait</label>
+              <input
+                required
+                className="max-w-96 rounded-sm bg-white px-2 py-1 ring ring-black/20 focus:ring-2 focus:ring-cyan-500 focus:outline-none"
+                id="trait"
+                type="text"
+                name="trait"
+              />
+              {error?.trait && (
+                <span className="text-sm text-red-600">{error.trait}</span>
+              )}
+            </fieldset>
+            <fieldset className="col-span-2 flex w-full flex-col gap-1">
+              <label htmlFor="image_url">Profile pic</label>
+              <input
+                className="max-w-96 rounded-sm bg-white px-2 py-1 ring ring-black/20 focus:ring-2 focus:ring-cyan-500 focus:outline-none"
+                id="image_url"
+                type="file"
+                name="image_url"
+              />
+              {error?.image_url && (
+                <span className="text-sm text-red-600">{error.image_url}</span>
+              )}
+            </fieldset>
+          </div>
+          <SubmitButton />
+        </form>
+      </ErrorBoundary>
     </div>
   )
 }
