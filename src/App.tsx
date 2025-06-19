@@ -8,6 +8,7 @@ import { Search } from "./components/Search"
 import { Shortlist } from "./components/ShortList"
 
 import { LoaderCircle } from "lucide-react"
+import { ErrorBoundary } from "react-error-boundary"
 import { puppies as puppiesData } from "./data/puppies"
 import { getPuppies } from "./queries"
 import { Puppy } from "./types"
@@ -31,11 +32,15 @@ function Main() {
   return (
     <main>
       <div className="bg-white p-6 shadow ring ring-black/5 mt-12 overflow-auto">
-        <Suspense
-          fallback={<LoaderCircle className="animate-spin stroke-slate-300" />}
-        >
-          <ApiPuppies />
-        </Suspense>
+        <ErrorBoundary fallback={<p>Oh no! Something went wrong!</p>}>
+          <Suspense
+            fallback={
+              <LoaderCircle className="animate-spin stroke-slate-300" />
+            }
+          >
+            <ApiPuppies />
+          </Suspense>
+        </ErrorBoundary>
       </div>
       <div className="mt-24 grid gap-8 sm:grid-cols-2">
         <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
