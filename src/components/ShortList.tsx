@@ -52,8 +52,12 @@ function DeleteButton({
     <button
       onClick={async () => {
         setPending(true)
-        const newPoppies = await toggleLikedStatus(id)
-        setPuppies(newPoppies)
+        const updatedPuppy = await toggleLikedStatus(id)
+        setPuppies((prevPups) =>
+          prevPups.map((existingPuppy) =>
+            existingPuppy.id === updatedPuppy.id ? updatedPuppy : existingPuppy,
+          ),
+        )
         setPending(false)
       }}
       className="group h-full border-l border-slate-100 px-2 hover:bg-slate-100"
